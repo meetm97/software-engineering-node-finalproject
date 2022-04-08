@@ -102,11 +102,34 @@
          req.session.destroy();
          res.sendStatus(200);
      }
+
+     const reset = async (req: Request, res: Response) => {
+        const newUser = req.body;
+        const password = newUser.password;
+        const hash = await bcrypt.hash(password, saltRounds);
+        newUser.password = hash;
+
+        const existingUser = await userDao
+            .findUserByUsername(req.body.username);
+        if (existingUser) {
+            const resetUser = await userDao
+                .updateUser(existingUser._id,newUser)
+            resetUser.password = '';
+                // @ts-ignore
+            req.session['profile'] = resetUser;
+            res.json(resetUser);
+          
+        } else {
+            res.sendStatus(403);
+            return;
+        }
+    }
  
      app.post("/api/auth/login", login);
      app.post("/api/auth/signup", signup);
      app.post("/api/auth/profile", profile);
      app.post("/api/auth/logout", logout);
+     app.post("/api/auth/reset", reset);
  }
  
  export default AuthenticationController;
