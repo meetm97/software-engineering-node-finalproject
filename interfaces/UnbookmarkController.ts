@@ -1,11 +1,8 @@
 import {Request, Response} from "express";
 
 /**
- * @file BookMarkController interface Represents web services for bookmark resources
+ * @file UnBookMarkController interface Represents web services for bookmark resources
  */
 export default interface UnbookMarkControllerI {
-    findAllUsersThatBookMarkedTuit (req: Request, res: Response): void;
-    findAllTuitsBookmarkedByUser (req: Request, res: Response): void;
-    userBookmarkedTuit (req: Request, res: Response): void;
-    userUnBookMarksTuit (req: Request, res: Response): void;
+    userTogglesTuitUnbookmarks (req: Request, res: Response): void;
 };

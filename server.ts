@@ -24,6 +24,7 @@ import FollowController from './controllers/FollowController';
 import MessageController from './controllers/MessageController';
 import AuthenticationController from "./controllers/AuthenticationController";
 import mongoose from "mongoose";
+import UnbookMarkController from "./controllers/UnbookmarkController";
 var cors = require('cors')
 const session = require("express-session");
 
@@ -73,6 +74,7 @@ const tuitController = TuitController.getInstance(app);
 const likeController = LikeController.getInstance(app);
 const dislikeController = DislikeController.getInstance(app);
 const bookmarkController = BookMarkController.getInstance(app);
+const unBookmarkController = UnbookMarkController.getInstance(app);
 const followController = FollowController.getInstance(app);
 const messageController = MessageController.getInstance(app);
 AuthenticationController(app);
