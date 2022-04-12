@@ -74,7 +74,7 @@ const tuitController = TuitController.getInstance(app);
 const likeController = LikeController.getInstance(app);
 const dislikeController = DislikeController.getInstance(app);
 const bookmarkController = BookMarkController.getInstance(app);
-const unBookmarkController = UnbookMarkController.getInstance(app);
+//const unBookmarkController = UnbookMarkController.getInstance(app);
 const followController = FollowController.getInstance(app);
 const messageController = MessageController.getInstance(app);
 AuthenticationController(app);

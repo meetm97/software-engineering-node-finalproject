@@ -2,7 +2,7 @@
 import UnbookmarkDaoI from "../interfaces/UnbookmarkDao";
 import UnbookMark from "../models/Unbookmark";
 
-export default class UnbookmarkDao implements UnbookmarkDaoI {
+export default class UnbookmarkDao {
     private static unbookmarkDao: UnbookmarkDao | null = null;
     /**
      * Creates singleton DAO instance
@@ -20,9 +20,9 @@ export default class UnbookmarkDao implements UnbookmarkDaoI {
         return Promise.resolve(undefined);
     }
 
-    findUserUnbookmarksTuit(tid: string, uid: string): Promise<UnbookMark> {
+    /*findUserUnbookmarksTuit(tid: string, uid: string): Promise<UnbookMark> {
         return Promise.resolve(undefined);
-    }
+    }*/
 
     userUnbookmarksTuit(tid: string, uid: string): Promise<any> {
         return Promise.resolve(undefined);
