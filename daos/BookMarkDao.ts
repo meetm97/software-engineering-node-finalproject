@@ -5,6 +5,8 @@
 import BookMarkDaoI from "../interfaces/BookMarkDao";
 import BookMarkModel from "../mongoose/BookMarkModel";
 import BookMark from "../models/BookMark";
+import Like from "../models/Like";
+import LikeModel from "../mongoose/LikeModel";
 
 /**
  * @class BookMarkModel Implements Data Access Object managing data storage
@@ -65,4 +67,22 @@ export default class BookMarkDao implements BookMarkDaoI {
      */  
     userUnBookMarksTuit = async (uid: string, tid: string): Promise<any> =>
     BookMarkModel.deleteOne({bookMarkedTuit: tid, bookMarkedBy: uid});
+
+    /**
+     * Check if the user has already liked the tuit
+     * @param {string} uid User's primary key
+     * @param {string} tid Tuit's primary key
+     * @returns Promise To be notified when like is removed from the database
+     */
+    findUserBookmarksTuit = async (uid: string, tid: string): Promise<any> =>
+        BookMarkModel.findOne({bookMarkedTuit: tid, bookMarkedBy: uid});
+
+    /**
+     * Count how many likes this tuit has
+     * @param {string} tid Tuit's primary key
+     * @returns Promise To be notified when like is removed from the database
+     */
+    countHowManyBookmarkedTuit = async (tid: string): Promise<any> =>
+        BookMarkModel.count({bookMarkedTuit: tid});
+
 }
