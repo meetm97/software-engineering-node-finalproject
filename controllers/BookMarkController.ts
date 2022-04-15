@@ -38,8 +38,8 @@ import TuitDao from "../daos/TuitDao";
             BookMarkController.bookmarkController = new BookMarkController();
              app.get("/api/tuits/:tid/bookmark", BookMarkController.bookmarkController.findAllUsersThatBookMarkedTuit);
              app.get("/api/users/:uid/bookmark", BookMarkController.bookmarkController.findAllTuitsBookmarkedByUser);
-             app.post("/api/users/:uid/bookmarks/:tid", BookMarkController.bookmarkController.userBookmarkedTuit);
-             app.put("/api/users/:uid/unbookmark/:tid", BookMarkController.bookmarkController.userUnBookMarksTuit);
+             //app.post("/api/users/:uid/bookmarks/:tid", BookMarkController.bookmarkController.userBookmarkedTuit);
+             app.put("/api/users/:uid/bookmarks/:tid", BookMarkController.bookmarkController.userTogglesTuitBookMarks);
          }
          return BookMarkController.bookmarkController;
      }
@@ -87,7 +87,7 @@ import TuitDao from "../daos/TuitDao";
       * @param {Response} res Represents response to client, including status
       * on whether deleting the bookmarked was successful or not
       */
-     userUnBookMarksTuit = async (req: Request, res: Response) => {
+      userTogglesTuitBookMarks = async (req: Request, res: Response) => {
          const bookMarkDao = BookMarkController.bookmarkDao;
          const tuitDao = BookMarkController.tuitDao;
          const uid = req.params.uid;
