@@ -8,7 +8,7 @@ import {Express, Request, Response} from "express";
  * @class UnbookMarkController Implements RESTful Web service API for bookmark resource.
  * Defines the following HTTP endpoints:
  * <ul>
- *     <li>GET /api/users/:uid/bookmark to retrieve all the tuits bookmarked by a user
+ *     <li>GET /api/users/:uid/unbookmark to retrieve all the tuits bookmarked by a user
  *     </li>
  *     <li>GET /api/tuits/:tid/bookmark to retrieve all users that bookmarked a tuit
  *     </li>

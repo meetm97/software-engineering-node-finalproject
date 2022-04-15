@@ -57,16 +57,30 @@ import TuitDao from "../daos/TuitDao";
      BookMarkController.bookmarkDao.findAllUsersThatBookMarkedTuit(req.params.tid)
              .then(bookmark => res.json(bookmark));
  
-     /**
-      * Retrieves all tuits bookmark by a user from the database
-      * @param {Request} req Represents request from client, including the path
-      * parameter uid representing the user bookmark the tuits
-      * @param {Response} res Represents response to client, including the
-      * body formatted as JSON arrays containing the bookmark objects that were bookmark by user
-      */
-      findAllTuitsBookmarkedByUser = (req: Request, res: Response) =>
-      BookMarkController.bookmarkDao.findAllTuitsBookmarkedByUser(req.params.uid)
-             .then(bookmark => res.json(bookmark));
+/**
+     * Retrieves all tuits bookmarked by a user from the database
+     * @param {Request} req Represents request from client, including the path
+     * parameter uid representing the user bookmarked the tuits
+     * @param {Response} res Represents response to client, including the
+     * body formatted as JSON arrays containing the tuit objects that were bookmarked
+     */
+ findAllTuitsBookmarkedByUser = (req: Request, res: Response) => {
+        const uid = req.params.uid;
+        // @ts-ignore
+        const profile = req.session['profile'];
+        const userId = uid === 'me' && profile ?
+            profile._id : uid;
+
+        BookMarkController.bookmarkDao.findAllTuitsBookmarkedByUser(userId)
+            .then(bookmark => {
+                // filter out likes with null tuits. Only keep defined tuits
+                // extract tuit object from likes respond with tuits
+                const bookmarksNonNullTuits = bookmark.filter(bookmark => bookmark.bookMarkedTuit);
+                const tuitsFromBookmarks = bookmarksNonNullTuits.map(bookmark => bookmark.bookMarkedTuit);
+                res.json(tuitsFromBookmarks);
+            });
+    }
+
  
      /**
       * @param {Request} req Represents request from client, including the
