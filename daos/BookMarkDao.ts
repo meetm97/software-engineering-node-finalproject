@@ -42,11 +42,16 @@ export default class BookMarkDao implements BookMarkDaoI {
      * @param {string} uid Users primary key
      * @returns Promise To be notified when bookmark is retrieved from the database
      */       
-    findAllTuitsBookmarkedByUser = async (uid: string): Promise<BookMark[]> =>
-    BookMarkModel
-            .find({bookMarkedBy: uid})
-            .populate("bookMarkedTuit")
-            .exec();
+     findAllTuitsBookmarkedByUser = async (uid: string): Promise<BookMark[]> =>
+        BookMarkModel
+                .find({bookmarkedBy: uid})
+                .populate({
+                    path: "tuit",
+                    populate: {
+                        path: "postedBy"
+                    }
+                })
+                .exec();
     
     /**
      * Inserts bookmark instance into the database
