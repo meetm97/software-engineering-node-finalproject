@@ -4,6 +4,7 @@
  import {Express, Request, Response} from "express";
  import BookMarkDao from "../daos/BookMarkDao";
  import BookMarkControllerI from "../interfaces/BookMarkController";
+import TuitDao from "../daos/TuitDao";
  
  /**
   * @class BookMarkController Implements RESTful Web service API for bookmark resource.
@@ -24,6 +25,7 @@
   */
  export default class BookMarkController implements BookMarkControllerI {
      private static bookmarkDao: BookMarkDao = BookMarkDao.getInstance();
+     private static tuitDao: TuitDao = TuitDao.getInstance();
      private static bookmarkController: BookMarkController | null = null;
      /**
       * Creates singleton controller instance
@@ -36,8 +38,8 @@
             BookMarkController.bookmarkController = new BookMarkController();
              app.get("/api/tuits/:tid/bookmark", BookMarkController.bookmarkController.findAllUsersThatBookMarkedTuit);
              app.get("/api/users/:uid/bookmark", BookMarkController.bookmarkController.findAllTuitsBookmarkedByUser);
-             app.post("/api/users/:uid/bookmarks/:tid", BookMarkController.bookmarkController.userBookmarkedTuit);
-             app.delete("/api/users/:uid/unbookmark/:tid", BookMarkController.bookmarkController.userUnBookMarksTuit);
+             //app.post("/api/users/:uid/bookmarks/:tid", BookMarkController.bookmarkController.userBookmarkedTuit);
+             app.put("/api/users/:uid/bookmarks/:tid", BookMarkController.bookmarkController.userTogglesTuitBookMarks);
          }
          return BookMarkController.bookmarkController;
      }
@@ -85,7 +87,32 @@
       * @param {Response} res Represents response to client, including status
       * on whether deleting the bookmarked was successful or not
       */
-      userUnBookMarksTuit = (req: Request, res: Response) =>
-     BookMarkController.bookmarkDao.userUnBookMarksTuit(req.params.uid, req.params.tid)
-             .then(status => res.send(status));
+      userTogglesTuitBookMarks = async (req: Request, res: Response) => {
+         const bookMarkDao = BookMarkController.bookmarkDao;
+         const tuitDao = BookMarkController.tuitDao;
+         const uid = req.params.uid;
+         const tid = req.params.tid;
+         // @ts-ignore
+         const profile = req.session['profile'];
+         const userId = uid === 'me' && profile ?
+             profile._id : uid;
+         try {
+             const userAlreadyBookmarkedTuit = await bookMarkDao.findUserBookmarksTuit(userId, tid);
+             const howManyBookmarkedTuit = await bookMarkDao.countHowManyBookmarkedTuit(tid);
+             let tuit = await tuitDao.findTuitById(tid);
+             if (userAlreadyBookmarkedTuit) {
+                 await bookMarkDao.userUnBookMarksTuit(userId, tid);
+                 tuit.stats.bookmarks = howManyBookmarkedTuit - 1;
+             } else {
+                 await BookMarkController.bookmarkDao.userBookmarkedTuit(userId, tid);
+                 tuit.stats.bookmarks = howManyBookmarkedTuit + 1;
+             }
+             await tuitDao.updateBookmarks(tid, tuit.stats);
+             res.sendStatus(200);
+         } catch (e) {
+             res.sendStatus(404);
+         }
+     }
+
+
  };

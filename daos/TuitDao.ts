@@ -83,7 +83,16 @@
          TuitModel.updateOne(
              {_id: tid},
              {$set: {stats: newStats}});
-
+     /**
+      * Updates bookmarks count with new values in database
+      * @param {string} tid Primary key of tuit stas to be modified
+      * @param {any} newStats new stats object for the tuit to be updated
+      * @returns Promise To be notified when tuit stats is updated in the database
+      */
+     updateBookmarks = async (tid: string, newStats: any): Promise<any> =>
+         TuitModel.updateOne(
+             {_id: tid},
+             {$set: {stats: newStats}});
 
     /**
      * Removes tuit from the database.
