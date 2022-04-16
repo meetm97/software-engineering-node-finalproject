@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import User from "../models/User";
 import Tuit from "../models/Tuit"
-axios.defaults.baseURL = 'https://software-engineering-node-dev4.herokuapp.com/api';
+axios.defaults.baseURL = 'https://software-eng-node-finalproject.herokuapp.com/api';
 
 const findAllUsers = async () =>
     await axios.get('/users');
