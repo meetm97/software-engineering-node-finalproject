@@ -24,7 +24,6 @@ import FollowController from './controllers/FollowController';
 import MessageController from './controllers/MessageController';
 import AuthenticationController from "./controllers/AuthenticationController";
 import mongoose from "mongoose";
-import UnbookMarkController from "./controllers/UnbookmarkController";
 var cors = require('cors')
 const session = require("express-session");
 
