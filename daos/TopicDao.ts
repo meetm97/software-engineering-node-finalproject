@@ -51,6 +51,15 @@
 		 */
 	  findAllTopics = async (): Promise<any>=>
 			TopicModel.find();
- 
+
+
+      findAllTuitsByTopic = async (tid: string): Promise<any>=>
+              TopicToTuitModel
+                  .find({topic: tid})
+                  .populate("tuit")
+                  .exec();
+
+      addTopicToTuit = async (tuitid: string, topicid: string): Promise<any> =>
+              TopicToTuitModel.create({topic:topicid,tuit:tuitid});
 	  
  }
