@@ -6,5 +6,5 @@ import {Request, Response} from "express";
 export default interface TopicControllerI {
     createTopic (req: Request, res: Response): void;
     deleteTopic (req: Request, res: Response): void;
-    findAllTuitsByTopic (req: Request, res: Response): void;
+    findAllTopics ( req: Request, res: Response): void;
 };
