@@ -10,8 +10,8 @@ import BookMark from "../models/BookMark";
  * @property {ObjectId[]} bookMarkedBy Array of BookMark IDs
  */
 const BookMarkSchema = new mongoose.Schema<BookMark>({
-    bookMarkedTuit: {type: Schema.Types.ObjectId, ref: "TuitModel"},
-    bookMarkedBy: {type: Schema.Types.ObjectId, ref: "UserModel"},
+    bookmarkedTuit: {type: Schema.Types.ObjectId, ref: "TuitModel"},
+    bookmarkedBy: {type: Schema.Types.ObjectId, ref: "UserModel"}
 }, {collection: "bookmark"});
 
 export default BookMarkSchema;
