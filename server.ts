@@ -23,6 +23,8 @@ import BookMarkController from "./controllers/BookMarkController"
 import FollowController from './controllers/FollowController';
 import MessageController from './controllers/MessageController';
 import AuthenticationController from "./controllers/AuthenticationController";
+import TopicController from './controllers/TopicController';
+
 import mongoose from "mongoose";
 var cors = require('cors')
 const session = require("express-session");
@@ -76,6 +78,7 @@ const bookmarkController = BookMarkController.getInstance(app);
 //const unBookmarkController = UnbookMarkController.getInstance(app);
 const followController = FollowController.getInstance(app);
 const messageController = MessageController.getInstance(app);
+const topicController = TopicController.getInstance(app);
 AuthenticationController(app);
 
 
