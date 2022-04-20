@@ -16,6 +16,8 @@
 				 app.get("/api/topics",TopicController.topicController.findAllTopics);
 				 app.post("/api/topics", TopicController.topicController.createTopic);
 				 app.delete("/api/topics/:tid", TopicController.topicController.deleteTopic);
+				 app.get("/api/topics/:tid/tuits",TopicController.topicController.findAllTuitsByTopic);
+                 app.post("/api/topics/:topicid/tuits/:tuitid",TopicController.topicController.addTopicToTuit);
  
 			}
 			return TopicController.topicController;
@@ -35,5 +37,14 @@
 	  findAllTopics= (req: Request, res: Response) =>
 			TopicController.topicDao.findAllTopics()
 				 .then(topics=>res.json(topics));
+
+	  findAllTuitsByTopic= (req: Request, res: Response) =>
+              TopicController.topicDao.findAllTuitsByTopic(req.params.tid)
+                  .then(tuits=>res.json(tuits));
+
+
+      addTopicToTuit = (req: Request, res: Response) =>
+              TopicController.topicDao.addTopicToTuit(req.params.tuitid, req.params.topicid)
+                  .then(status=>res.json(status));
  
  };
