@@ -91,7 +91,8 @@
      * deletion status
      */
 	  deleteTag = (req: Request, res: Response) =>{
-	  // Delete tag with given tagID string 
+		TagController.tagDao.deleteTag(req.params.tagID)
+		.then(status => res.json(status))
 	  }
 
   /**
@@ -124,7 +125,10 @@
    * @param {Response} res Represents response to client, including update
    * status
    */
-  updateTag = (req: Request, res: Response) =>{}
+  updateTag = (req: Request, res: Response) =>{
+	TagController.tagDao.updateTag(req.body)
+	.then(status => res.json(status))
+  }
 	 
 	 
  };

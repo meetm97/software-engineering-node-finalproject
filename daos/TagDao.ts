@@ -47,7 +47,7 @@
 	  * @returns Promise To be notified when tag is removed from the database
 	  */
 	 deleteTag = async (tagID: string): Promise<any> =>
-		 {}
+	 	TagModel.deleteOne({_id: tagID});
  
 	 /**
 	  * Retrieves all tag documents from the database.
@@ -71,7 +71,8 @@
 	  * Updates tag with new values in the database.
 	  * @param {Tag} tag Tag body with new values for tag
 	  */
-	 updateTag = async (tag: Tag): Promise<any> =>{}
+	 updateTag = async (tag: Tag): Promise<any> =>
+	 	TagModel.updateOne({tag: tag.tag}, {$set: tag})
 		
  
 	 /**
@@ -80,5 +81,5 @@
 	  * @returns Promise To be notified when the tag is retrieved from database
 	  */
 	 findTagById = async (tagID: string): Promise<any> =>
-		{}
+	 	TagModel.findById(tagID).exec();
  }
