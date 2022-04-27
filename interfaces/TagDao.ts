@@ -3,7 +3,7 @@ import Tag from "../models/Tag";
 /**
  * @file Declares API for Likes related data access object methods
  */
-export default interface TopicDaoI {
+export default interface TagDaoI {
     createTag(tag: Tag): Promise<Tag>;
     deleteTag(tagID: string): Promise<any>;
     findAllTags(): Promise<Tag[]>;
