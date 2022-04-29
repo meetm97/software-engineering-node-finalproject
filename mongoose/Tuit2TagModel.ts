@@ -1,4 +1,10 @@
-import mongoose from "mongoose";
-import TopicSchema from "./TopicSchema";
-const TopicModel = mongoose.model("TopicModel", TopicSchema);
-export default TopicModel;
+/**
+ * @file Implements mongoose model to CRUD documents in
+ * the Tuits2Tags collection
+ */
+ import mongoose from "mongoose";
+ import Tuit2TagSchema from "./Tuit2TagSchema";
+ 
+ const Tuit2TagModel = mongoose.model('Tuit2TagModel', Tuit2TagSchema);
+ 
+ export default Tuit2TagModel;
