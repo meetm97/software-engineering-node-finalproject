@@ -54,6 +54,14 @@
          TuitModel.findById(uid)
              .populate("postedBy")
              .exec();
+
+    /**
+     * Inserts tuit document into the database.
+     * @param {Tuit} tuit Tuit to insert into database
+     * @returns Promise To be notified when tuit is inserted into the database
+     */
+     createTuit = async (tuit: Tuit): Promise<Tuit> =>
+        TuitModel.create(tuit);
     /**
      * Inserts tuit instance into the database
      * @param {User} uid Primary key of user that posts the tuit
