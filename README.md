@@ -6,7 +6,8 @@ The Tuiter app mandates a user login if you want to use some of the implemented 
 
 # How To Run(Because of a data breach in Heroku we are deploying our project locally and the instructions below are to run it locally) :
  - Download the project files locally and make sure that you are on the lastest verion of Node(16^).
- - Open the folder in your IDE.
- - Open the terminal and start by running npm install, to install all the dependancies.
- - Run npm run build.
- - Run npm start.
+ - Open the Project in your IDE.
+ - Open the terminal run the following commands:
+ -- npm install.
+ -- Run npm run build.
+ -- Run npm start.
