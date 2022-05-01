@@ -50,6 +50,7 @@
              app.post("/api/users/:uid/tuits", TuitController.tuitController.createTuitByUser);
              app.put('/api/tuits/:tid', TuitController.tuitController.updateTuit);
              app.delete('/api/tuits/:tid', TuitController.tuitController.deleteTuit);
+             app.delete("/api/tuits", TuitController.tuitController.deleteTuitByContent);
          }
          return TuitController.tuitController
      }
@@ -230,6 +231,30 @@
          // Add tuit2tags and tags for new tuit text
          await TuitController.tuitService.createTagsAndTuit2TagsForTuit(updatedTuit);
      }
+
+          
+    /**
+      * @param {Request} req Represents request from client, including path
+      * parameter uid identifying teh comntent of the tuit to be removed
+      * @param {Response} res Represents response to client, including status
+      * on whether deleting a user was successful or not
+      */
+     deleteTuitByContent = async (req: Request, res: Response) => {
+        // Find all the tuits with the given text
+        const tuits2BeDeleted = await TuitController.tuitDao.findTuitsByText(req.body.tuit);
+
+        // If there are no tuits to delete, respond with empty deletion status
+        if (tuits2BeDeleted.length === 0) {
+            res.json({"deletedCount": 0});
+        } else {
+            // Delete Tuit2Tags and update Tags associated with tuit
+            await TuitController.tuitService.deleteTuit2TagsAndUpdateTagsByTuits(tuits2BeDeleted);
+
+            // Delete tuits with given text
+            await TuitController.tuitDao.deleteTuitByContent(req.body.tuit)
+                .then(status => res.json(status))
+        }
+    }
  
      /**
       * Removes a tuit document from the database.

@@ -123,6 +123,14 @@
      * @param {string} tuit content of the tuit to be removed
      * @returns Promise To be notified when user tuit is removed from the database
      */
-     deleteTuitByContent = async (tuit: string): Promise<any> =>
-         TuitModel.deleteMany({tuit});
+     deleteTuitByContent = async (tuitText: string): Promise<any> =>
+            TuitModel.deleteMany({tuit: tuitText})
+    
+    /**
+     * Finds tuit document with given tuit text from the database.
+     * @param {string} tuitText Tuit text
+     * @returns Promise To be notified when tuit is found from the database
+     */
+     findTuitsByText = async (tuitText: string): Promise<Tuit[]> =>
+     TuitModel.find({tuit: tuitText});
 }
