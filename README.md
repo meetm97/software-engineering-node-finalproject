@@ -8,6 +8,6 @@ The Tuiter app mandates a user login if you want to use some of the implemented 
  - Download the project files locally and make sure that you are on the lastest verion of Node(16^).
  - Open the Project in your IDE.
  - Open the terminal run the following commands:
- -- npm install.
- -- Run npm run build.
- -- Run npm start.
+  - npm install.
+  - Run npm run build.
+  - Run npm start.
